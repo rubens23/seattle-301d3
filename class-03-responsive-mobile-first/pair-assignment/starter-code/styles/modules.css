@@ -62,29 +62,27 @@
          - Just, ya know, try to make it look good! */
 /* @media only screen... */
 @media only screen and (min-width: 640px) {
-  .main-nav ul {
-    display: inline-block;
-    padding: 0;
-    list-style: none;
-    clear: both;
-
-  }
-
   .icon-menu {
-    position: absolute;
-    top: 2px;
-    right: 2px;
     display: none;
   }
 
-  .display {
-    display: inline-block;
+  .main-nav {
+    padding: .2em .2em .2em .2em;
   }
 
-  .main-nav  li {
-    display: inline-block;
+  .main-nav ul {
+    display: block;
+
   }
 
+  .main-nav  ul li {
+    display: inline;
+    border-bottom: none;
+  }
 
+  img {
+    width: auto;
+    height: 500px;
+  }
 
 }
