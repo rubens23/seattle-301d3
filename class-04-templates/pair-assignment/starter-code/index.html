@@ -15,16 +15,16 @@
         - Be sure to give it a meaningful id attribute, and don't forget to specify the type!
         - Insert placeholder keys.
     -->
-    <script id="" type="">
-      <article class="clearfix" data-author="{{}}" data-category="{{}}">
+    <script id="article-template" type="text/x-handlebars-template">
+      <article class="clearfix" data-author="{{author}}" data-category="{{category}}">
         <header>
           <h1>{{}}</h1>
           <div class="byline">
-            By <address><a href="{{}}">{{}}</a></address>
+            By <address><a href="{{authorUrl}}">{{author}}</a></address>
             {{}}
           </div>
         </header>
-        <section class="article-body">{{{}}}</section>
+        <section class="article-body">{{{body}}}</section>
         <a href="#" class="read-on">Read on &rarr;</a>
       </article>
     </script>
@@ -83,7 +83,8 @@
     </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <!-- TODO: Include Handlebars.JS from a CDN -->
+    <!-- DONE: Include Handlebars.JS from a CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.min.js" charset="utf-8"></script>
     <script src="scripts/blogArticles.js"></script>
     <script src="scripts/article.js"></script>
     <script src="scripts/articleView.js"></script>
