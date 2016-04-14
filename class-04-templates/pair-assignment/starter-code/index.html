@@ -11,17 +11,17 @@
     <link rel="stylesheet" href="styles/modules.css">
 
     <!--
-      TODO: Complete this script tag to hold the Handlebars template.
+      DONE: Complete this script tag to hold the Handlebars template.
         - Be sure to give it a meaningful id attribute, and don't forget to specify the type!
         - Insert placeholder keys.
     -->
     <script id="article-template" type="text/x-handlebars-template">
       <article class="clearfix" data-author="{{author}}" data-category="{{category}}">
         <header>
-          <h1>{{}}</h1>
+          <h1>{{title}}</h1>
           <div class="byline">
             By <address><a href="{{authorUrl}}">{{author}}</a></address>
-            {{}}
+            {{publishedOn}}
           </div>
         </header>
         <section class="article-body">{{{body}}}</section>
@@ -84,7 +84,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <!-- DONE: Include Handlebars.JS from a CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.js"></script>
     <script src="scripts/blogArticles.js"></script>
     <script src="scripts/article.js"></script>
     <script src="scripts/articleView.js"></script>
