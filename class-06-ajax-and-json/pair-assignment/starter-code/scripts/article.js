@@ -57,13 +57,19 @@ Article.fetchAll = function() {
   } else {
     // DONE: When we don't already have our data, we need to:
     // 1. Retrieve the JSON file from the server with AJAX (which jQuery method is best for this?), .getJSON
+<<<<<<< HEAD
     Article.loadAll($.getJSON('../data/hackerIpsum'));
     localStorage.hackerIpsum = Article.all;
 
+=======
+      $.getJSON('../data/hackerIpsum');
+>>>>>>> 9b5250eb9a1ab20fa2d5f385c12a1805cb8b75d7
     // 2. Store the resulting JSON data with the .loadAll method,
+    Article.loadAll($.getJSON('../data/hackerIpsum'));
+    localStorage.hackerIpsum = Article.all;
 
     // 3. Cache it in localStorage so we can skip the server call next time,
-
+    
     // 4. And then render the index page (perhaps with an articleView method?).
 
   }
