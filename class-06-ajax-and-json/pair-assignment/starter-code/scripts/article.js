@@ -59,7 +59,7 @@ Article.fetchAll = function() {
     // 1. Retrieve the JSON file from the server with AJAX (which jQuery method is best for this?), .getJSON
 
     // 2. Store the resulting JSON data with the .loadAll method,
-    Article.loadAll($.getJSON('../data/hackerIpsum'));
+    Article.loadAll(JSON.parse($.getJSON('data/hackerIpsum.json'));
     localStorage.hackerIpsum = Article.all;
 
     // 3. Cache it in localStorage so we can skip the server call next time,
