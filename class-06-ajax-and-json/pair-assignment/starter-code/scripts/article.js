@@ -49,13 +49,13 @@ Article.fetchAll = function() {
     // we can load it by calling the .loadAll() method,
     // and then render the index page (using the proper method on the articleView object).
     Article.loadAll(//TODO: What do we pass in here to the .loadAll() method? Be careful
-      // when handling different data types between here and localStorage!
+      // when handling different data types between here and localStorage! stringify, parseInt
     );
     articleView.someFunctionToCall//(); //TODO: Change this fake method call to the correct
     // one that will render the index page.
   } else {
     // TODO: When we don't already have our data, we need to:
-    // 1. Retrieve the JSON file from the server with AJAX (which jQuery method is best for this?),
+    // 1. Retrieve the JSON file from the server with AJAX (which jQuery method is best for this?), .getJSON
 
     // 2. Store the resulting JSON data with the .loadAll method,
 
