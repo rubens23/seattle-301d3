@@ -19,18 +19,20 @@
     return template(this);
   };
 
-  // TODO: Set up a DB table for articles.
+  // DONE: Set up a DB table for articles.
   Article.createTable = function(callback) {
     webDB.execute(
-      'CREATE TABLE articles (' +
+      'CREATE TABLE IF NOT EXISTS articles (' +
         'id INTEGER PRIMARY KEY,' +
         'title VARCHAR(50),' +
         'author VARCHAR(50),' +
-        'markdown TEXT,' +
+        'authorUrl VARCHAR(255),' +
+        'category VARCHAR(50),' +
+        'body TEXT,' +
         'publishedOn DATETIME);',
        // what SQL command do we run here inside these quotes?
-      function(result) {
-        console.log('Successfully set up the articles table.', result);
+      function() {
+        console.log('Successfully set up the articles table.');
         if (callback) callback();
       }
     );
@@ -41,7 +43,7 @@
     webDB.execute(
       [
         {
-          'sql': 'INSERT INTO articles(title, author, authorUrl, category, publishedOn, body) VALUES (?,?,?,?,?,?) ;',
+          'sql': 'INSERT INTO articles(title, author, authorUrl, category, publishedOn, body) VALUES (?, ?, ?, ?, ?, ?) ;',
           'data': [this.title, this.author, this.authorUrl, this.category, this.publishedOn, this.body]
         }
       ],
@@ -90,7 +92,7 @@
     });
   };
 
-  // TODO: Refactor the .fetchAll() method to check if the database holds any records or not.
+  // DONE: Refactor the .fetchAll() method to check if the database holds any records or not.
 
   // If the DB has data already, we'll load up the data (by descended published order), and then hand off control to the View.
   // If the DB is empty, we need to retrieve the JSON and process it.
@@ -100,23 +102,23 @@
         // DONE:
         // 1 - Use Article.loadAll to instanitate these rows,
         // 2 - Pass control to the view by calling the next function that was passed in to Article.fetchAll
-        Article.loadAll();
+        Article.loadAll(rows);
+        next();
 
       } else {
         $.getJSON('/data/hackerIpsum.json', function(data) {
           // Save each article from this JSON file, so we don't need to request it next time:
           data.forEach(function(obj) {
             var article = new Article(obj); // This will instantiate an article instance based on each article object from our JSON.
-            // TODO:
+            // DONE:
             // 1 - 'insert' the newly-instantiated article in the DB: (hint: what can we call on each 'article' instance?).
-            
+            article.insertRecord();
           });
           // Now get ALL the records out the DB, with their database IDs:
-          webDB.execute('', function(rows) { // TODO: select our now full table
-            // TODO:
-            // 1 - Use Article.loadAll to instanitate these rows,
-            // 2 - Pass control to the view by calling the next function that was passed in to Article.fetchAll
-
+          webDB.execute('SELECT * FROM articles', function(rows) { // DONE: select our now full table
+            // DONE:
+            Article.loadAll(rows);
+            next();
           });
         });
       }
