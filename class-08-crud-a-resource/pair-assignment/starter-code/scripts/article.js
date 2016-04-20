@@ -22,7 +22,13 @@
   // TODO: Set up a DB table for articles.
   Article.createTable = function(callback) {
     webDB.execute(
-      '...;', // what SQL command do we run here inside these quotes?
+      'CREATE TABLE articles (' +
+        'id INTEGER PRIMARY KEY,' +
+        'title VARCHAR(50),' +
+        'author VARCHAR(50),' +
+        'markdown TEXT,' +
+        'publishedOn DATETIME);',
+       // what SQL command do we run here inside these quotes?
       function(result) {
         console.log('Successfully set up the articles table.', result);
         if (callback) callback();
@@ -30,12 +36,12 @@
     );
   };
 
-  // TODO: Insert an article instance into the database:
+  // DONE: Insert an article instance into the database:
   Article.prototype.insertRecord = function(callback) {
     webDB.execute(
       [
         {
-          'sql': '...;',
+          'sql': 'INSERT INTO articles(title, author, authorUrl, category, publishedOn, body) VALUES (?,?,?,?,?,?) ;',
           'data': [this.title, this.author, this.authorUrl, this.category, this.publishedOn, this.body]
         }
       ],
@@ -43,12 +49,12 @@
     );
   };
 
-  // TODO: Delete an article instance from the database:
+  // DONE: Delete an article instance from the database:
   Article.prototype.deleteRecord = function(callback) {
     webDB.execute(
       [
         {
-          'sql': '...;',
+          'sql': 'DELETE FROM articles WHERE id = ?;',
           'data': [this.id]
         }
       ],
@@ -56,12 +62,12 @@
     );
   };
 
-  // TODO: Update an article instance, overwriting it's properties into the corresponding record in the database:
+  // DONE: Update an article instance, overwriting it's properties into the corresponding record in the database:
   Article.prototype.updateRecord = function(callback) {
     webDB.execute(
       [
         {
-          'sql': '...;',
+          'sql': 'UPDATE articles SET title = ?, author = ?, authorUrl = ?, category = ?, publishedOn = ?, body = ?, WHERE id = ?);',
           'data': [this.title, this.author, this.authorUrl, this.category, this.publishedOn, this.body, this.id]
         }
       ],
@@ -69,10 +75,10 @@
     );
   };
 
-  // TODO: Use correct SQL syntax to delete all records from the articles table.
+  // DONE: Use correct SQL syntax to delete all records from the articles table.
   Article.truncateTable = function(callback) {
     webDB.execute(
-      'DELETE ...;', // <----finish the command here, inside the quotes.
+      'DELETE * FROM articles;', // <----finish the command here, inside the quotes.
       callback
     );
   };
@@ -89,11 +95,12 @@
   // If the DB has data already, we'll load up the data (by descended published order), and then hand off control to the View.
   // If the DB is empty, we need to retrieve the JSON and process it.
   Article.fetchAll = function(next) {
-    webDB.execute('...', function(rows) { // TODO: fill these quotes to 'select' our table.
+    webDB.execute('SELECT * FROM articles ORDER BY publishedOn DESC', function(rows) { // DONE: fill these quotes to 'select' our table.
       if (rows.length) {
-        // TODO:
+        // DONE:
         // 1 - Use Article.loadAll to instanitate these rows,
         // 2 - Pass control to the view by calling the next function that was passed in to Article.fetchAll
+        Article.loadAll();
 
       } else {
         $.getJSON('/data/hackerIpsum.json', function(data) {
@@ -102,7 +109,7 @@
             var article = new Article(obj); // This will instantiate an article instance based on each article object from our JSON.
             // TODO:
             // 1 - 'insert' the newly-instantiated article in the DB: (hint: what can we call on each 'article' instance?).
-
+            
           });
           // Now get ALL the records out the DB, with their database IDs:
           webDB.execute('', function(rows) { // TODO: select our now full table
