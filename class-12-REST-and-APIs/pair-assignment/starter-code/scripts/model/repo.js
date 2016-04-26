@@ -8,7 +8,7 @@
     //  Don't forget to call the callback!
     console.log(callback);
     $.ajax({
-      url: 'https://api.github.com/users/erinroby/repos' +
+      url: 'https://api.github.com/users/rubens23/repos' +
       '?per_page=3' +
       '&sort=updated',
       type: 'GET',
